@@ -1,0 +1,352 @@
+{% load static %}
+<html>
+  <head>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400, 600' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- <link rel="stylesheet" href="{% static 'test.css' %}"> -->
+    <style>
+        html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+::-webkit-scrollbar {
+	width: 4px;
+}
+::-webkit-scrollbar-thumb {
+	background-color: #4c4c6a;
+	border-radius: 2px;
+}
+.chatbox {
+    width: 700px;
+    height: 700px;
+    max-height: 400px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+}
+.chat-window {
+    flex: auto;
+    max-height: calc(100% - 60px);
+    background: #2f323b;
+    overflow: auto;
+}
+.chat-input {
+    flex: 0 0 auto;
+    height: 60px;
+    background: #40434e;
+    border-top: 1px solid #2671ff;
+    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+}
+.chat-input input {
+    height: 59px;
+    line-height: 60px;
+    outline: 0 none;
+    border: none;
+    width: calc(100% - 60px);
+    color: white;
+    text-indent: 10px;
+    font-size: 12pt;
+    padding: 0;
+    background: #40434e;
+}
+.chat-input button {
+    float: right;
+    outline: 0 none;
+    border: none;
+    background: rgba(255,255,255,.25);
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    padding: 2px 0 0 0;
+    margin: 10px;
+    transition: all 0.15s ease-in-out;
+}
+.chat-input input[good] + button {
+    box-shadow: 0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
+    background: #2671ff;
+}
+.chat-input input[good] + button:hover {
+    box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.chat-input input[good] + button path {
+    fill: white;
+}
+.msg-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+.msg-box {
+    display: flex;
+    background: #5b5e6c;
+    padding: 10px 10px 0 10px;
+    border-radius: 0 6px 6px 0;
+    max-width: 80%;
+    width: auto;
+    float: left;
+    box-shadow: 0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
+}
+.user-img {
+    display: inline-block;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background: #2671ff;
+    margin: 0 10px 10px 0;
+}
+.flr {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 50px);
+}
+.messages {
+    flex: 1 0 auto;
+}
+.msg {
+    display: inline-block;
+    font-size: 11pt;
+    line-height: 13pt;
+    color: rgba(255,255,255,.7);
+    margin: 0 0 4px 0;
+}
+.msg:first-of-type {
+    margin-top: 8px;
+}
+.timestamp {
+    color: rgba(0,0,0,.38);
+    font-size: 8pt;
+    margin-bottom: 10px;
+}
+.username {
+    margin-right: 3px;
+}
+.posttime {
+    margin-left: 3px;
+}
+.msg-self .msg-box {
+    border-radius: 6px 0 0 6px;
+    background: #2671ff;
+    float: right;
+}
+.msg-self .user-img {
+    margin: 0 0 10px 10px;
+}
+.msg-self .msg {
+    text-align: right;
+}
+.msg-self .timestamp {
+    text-align: right;
+}
+  
+  .header {
+    background-color:#ecd9d9;
+  }
+  
+  .container {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 0 10px;
+  }
+  
+  .jumbotron {
+    background: url(https://s3.amazonaws.com/codecademy-content/projects/broadway/bg.jpg);
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
+    height: 800px;
+  }
+  
+  .nav {
+    margin: 0;
+    padding: 20px 0;
+  }
+  
+  .nav li {
+    display:inline;
+    color: #fff;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform:uppercase;
+    margin-left:10px;
+    margin-right:10px;
+  }
+  
+  .main {
+    position: relative;
+    top: 180px;
+    text-align: center;
+  }
+  
+  .main h1 {
+    color: #333;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 70px;
+    margin-top: 0;
+    margin-bottom: 80px;
+    text-transform: uppercase;
+  }
+  
+  .btn-main {
+    background-color: #333;
+    color: #fff;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 1.3px;
+    padding: 16px 40px;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  
+  .btn-default {
+    color:#333;
+    border:1px solid #333333;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 1.3px;
+    padding: 10px 20px;
+    text-decoration: none;
+    text-transform: uppercase;  
+    display: inline-block;
+    margin-bottom: 20px; 
+    padding-right:50px;
+    padding-left:50px;
+  }
+  
+  .supporting {
+    padding-top: 80px;
+    padding-bottom: 100px;
+  }
+  
+  .supporting .col {
+    float: left;
+    width: 33%;
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+  }
+  
+  .supporting img {
+    height: 32px;
+  }
+  
+  .supporting h2 {
+    font-weight: 600;
+    font-size: 23px;
+    text-transform: uppercase;
+  }
+  
+  .supporting p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 0 50px;
+    margin-bottom: 40px;
+  }
+  
+  .clearfix {
+    clear: both;
+  }
+  
+  .footer {
+    background-color: #333;
+    color: #fff;
+    padding: 30px 0;
+  }
+  
+  .footer p {
+    font-family: 'Raleway', sans-serif;
+    text-transform: uppercase;
+    font-size: 11px;
+  }
+  
+  @media (max-width: 500px) {
+    .main h1 {
+      font-size: 50px;
+      padding: 0 40px;
+    }
+  
+    .supporting .col {
+      width: 100%;
+    }
+  }
+    </style>
+  </head>
+  <body>
+
+    <div class="header">
+      <div class="container">
+        <ul class="nav">
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'myapp:index' %}" >Home</a></li>
+          <li><a href="{% url 'myapp:logout' %}" >Log out</a></li>
+		  <li><a >Welcome: {{ user.username }} {{user.image}}</a></li>
+          {% else %}
+          <li><a href="{% url 'myapp:index' %}" >Home</a></li>
+          <li><a href="{% url 'myapp:signup' %}">signup</a></li>
+          <li><a href="{% url 'myapp:login' %}">Login</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+      <div class="jumbotron">
+      <div class="container">  
+        <div class="main">
+          <h1>CHATBOT</h1>
+          {% if user.is_authenticated %}
+          <a href="{% url 'myapp:test' %}" class="btn-main">START CHAT</a>
+          {% else %}
+          <a href="{% url 'myapp:signup' %}" class="btn-main">Get Started</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="supporting">
+      <div class="container">
+        <div class="col">
+          <img src="https://s3.amazonaws.com/codecademy-content/projects/broadway/design.svg">
+          <h2>Design</h2>
+          <p>Make your projects look great and interact beautifully.</p>
+          <a href="#" class="btn-default">Learn More</a>
+          
+        </div>
+        <div class="col">
+          <img src="https://s3.amazonaws.com/codecademy-content/projects/broadway/develop.svg">
+          <h2>Develop</h2>
+          <p>Use modern tools to turn your design into a web site</p>
+          <a href="#" class="btn-default">Learn More</a>
+          
+        </div>
+        <div class="col">
+          <img src="https://s3.amazonaws.com/codecademy-content/projects/broadway/deploy.svg">
+          <h2>Deploy</h2>
+          <p>Use modern tools to turn your design into a web site</p>
+          <a href="#" class="btn-default">Learn More</a>
+          
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+       <p></p>
+      </div>
+    </div>
+
+  </body>
+</html>
